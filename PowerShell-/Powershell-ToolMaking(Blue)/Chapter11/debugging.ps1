@@ -1,4 +1,8 @@
+[CmdletBinding()]
+param()
 $data = import-csv c:\temp\data.csv
+Write-Debug "Imported CSV data"
+
 $totalqty = 0
 $totalsold = 0
 $totalbought = 0
