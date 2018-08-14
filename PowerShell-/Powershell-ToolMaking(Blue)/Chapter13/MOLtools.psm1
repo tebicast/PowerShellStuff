@@ -1,3 +1,4 @@
+$MOLEerrorLogPreference = 'c:\temp\mol-retries.txt'
 function Get-MOLSystemInfo {
 
     <#
@@ -22,6 +23,8 @@ function Get-MOLSystemInfo {
         [ValidateCount(1,10)]
         [Alias('hostname')]
         [string[]]$ComputerName,
+
+        [string] $MOLEerrorLogPreference,
     
         [string]$ErrorLog = 'c:\temp\retry.txt',
 
@@ -67,6 +70,9 @@ function Get-MOLSystemInfo {
         }#End of PROCESS
         END {}
     }
+Export-ModuleMember -Variable MOLEerrorLogPreference
+Export-ModuleMember -Function Get-MOLSysteminfo
+
     #Get-SystemInfo -ComputerName localhost -LogErrors
     #-ComputerName localhost -LogErrors
     #Get-SystemInfo -ErrorLog x.txt -ComputerName localhost,localhost
