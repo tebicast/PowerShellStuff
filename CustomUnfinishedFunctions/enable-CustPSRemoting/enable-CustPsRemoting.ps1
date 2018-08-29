@@ -15,6 +15,8 @@ Invoke-Expression -Command $cmd2
 #$computerList = Get-Content "\\PathTo\ServersHere.txt"
 #foreach ($ishost in $computerList){
 Invoke-Command -computername Xlnxaport8 -command {enable-psremoting -force -Verbose}
+
+#####BELOW WORKING AND TESTED! change \\$ishost to computername
 #$cmd1 = "cmd /c '\\PathTo\ServersHere.txt' \\$ishost -s powershell.exe enable-psremoting -force"
 #Invoke-Expression -Command $cmd1
 #} 
