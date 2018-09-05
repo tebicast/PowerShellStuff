@@ -5,9 +5,9 @@ $computers = get-content “$hostnamestxt”
 Function Get-WMIComputerSessions {
 <#
 .SYNOPSIS
-    Retrieves tall user sessions from local or remote server/s
+    Retrieves all user sessions from local or remote server/s
 .DESCRIPTION
-    Retrieves tall user sessions from local or remote server/s
+    Retrieves all user sessions from local or remote server/s
 .PARAMETER computer
     Name of computer/s to run session query against.
 .NOTES
@@ -39,11 +39,11 @@ Process {
     #Iterate through collection of computers
     ForEach ($c in $computer) {
         #Get explorer.exe processes
-        #As per Roman, below determintes if a computer has a logged on user, if explorer is up it means user is on it
+        #If a computer has a logged on user, if explorer is up it means user is on it
         $proc = gwmi win32_process -computer $c -Filter "Name = 'explorer.exe'"
         #Go through collection of processes
         ForEach ($p in $proc) {
-            $temp = "" | Select Computer, Domain, User
+            $temp = "" | Select-Object Computer, Domain, User
             $temp.computer = $c
             $temp.user = ($p.GetOwner()).User
             $temp.domain = ($p.GetOwner()).Domain
@@ -56,7 +56,7 @@ End {
     }
 }
 
-Get-WMIComputerSessions -computer $computers
+Get-WMIComputerSessions -computer localhost
 
-##below determines what user accounts ending in "-adm" are logged on.
+##below determines what user accounts ending in "vrod" are logged on.
 #Get-WMIComputerSessions -computer $computers | Where-Object {$_.User -like "-adm"}
