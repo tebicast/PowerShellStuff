@@ -23,6 +23,9 @@ Specify this switch to create a text log file of errors in TRY.
 
 .EXAMPLE
 Remove-SecDistMessUser -secGroupList (get-content "\\PATH-TO-FILE") -fullname 'FULL NAME' -LogErrors -Verbose
+
+.Link
+
 #>
 
 	[CmdletBinding()]
