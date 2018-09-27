@@ -1,4 +1,0 @@
-# firstrepo
-
-justatest
-ok
