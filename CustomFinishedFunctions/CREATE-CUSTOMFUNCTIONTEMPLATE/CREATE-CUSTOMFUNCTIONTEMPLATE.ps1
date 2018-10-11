@@ -2,7 +2,7 @@ FUNCTION CREATE-CUSTOMFUNCTIONTEMPLATE{
 <#
 .SYPNOSIS
 My own custom template -- derived from link below
-https://github.com/tebicast/firstrepo/blob/master/CustomFinishedFunctions/RemoveSecDistMessUser/Remove-SecDistMessageUser.ps1
+https://github.com/tebicast/PowerShellStuff/blob/master/CustomFinishedFunctions/CREATE-CUSTOMFUNCTIONTEMPLATE/CREATE-CUSTOMFUNCTIONTEMPLATE.ps1
 
 .Notes
 version 1.0.0
@@ -78,7 +78,7 @@ PROCESS{
 				##TRY TO DO SOMETHING
 				
 				"$name removed from $secgroup" | Out-File $CONTENTLOGVARIABLE -Append
-				}##end of IF(Get-DistributionGroup -Identity $secgroup )....
+				
 				}#end TRY
 			CATCH{
 				write-warning "LOG ERROR HERE AS WARNING : $_.Exception.Message"
@@ -87,8 +87,8 @@ PROCESS{
 						write-warning "Eror Logged to $ERRORLOGVARIABLE"
 					}##END of if
 				}##End of CATCH	
-			}##END of FOREACH($secgroup in $FIRSTPARAMETER)	
-		}##END of FOREACH($name in $SECONDPARAMETER)										
+			
+												
 }##END OF PROCESS
 END{<#intenrionally empty#>}
 }##End of function
