@@ -104,7 +104,7 @@ END{<#intenrionally empty#>}
 
 
 $inputPassword = (Read-Host 'Type in the password for New User(s)' -asSecureString)
-$csv = Import-Csv \\fileserver\vrodriguez\Scripts\Powershell\CreateUser-Consultants\brainjocks2USERS.txt -Header username,firstname,lastname,email
+$csv = Import-Csv \\fileserver\userprofilepath\Scripts\Powershell\CreateUser-Consultants\brainjocks2USERS.txt -Header username,firstname,lastname,email
 ForEach ($newUser in $csv){ 
   Remove-Variable importedSam
   $importedFirstName = $newUser.firstname
@@ -113,8 +113,8 @@ ForEach ($newUser in $csv){
   $importedSAM = $newUser.username
   $importedEmailAddress = $newUser.email
   Write-Verbose "Working now with $importedSAM"
-  New-ConsultantUser -fullName $importedFullname -firstName $importedFirstName -lastName $importedLastName -SamAccountName $importedSAM -UserPrincipalName ($importedSAM + '@ansi.org')`
-  -DisplayName $importedFullname -OrganizationalUnit "OU=Consultants,OU=Depts,DC=ANSI,DC=org" -passWord $inputPassword -description 'BrainJocks Team' -emailAddress $importedEmailAddress -LogErrors -Verbose 
+  New-ConsultantUser -fullName $importedFullname -firstName $importedFirstName -lastName $importedLastName -SamAccountName $importedSAM -UserPrincipalName ($importedSAM + '@domainname.org')`
+  -DisplayName $importedFullname -OrganizationalUnit "OU=Consultants,OU=Depts,DC=domainname,DC=org" -passWord $inputPassword -description 'DescriptionHere' -emailAddress $importedEmailAddress -LogErrors -Verbose 
 } 
 
 

@@ -187,7 +187,7 @@ PROCESS {
 } ##PROCESS
 END {}
 }
-#Get-FolderInfo -HomeRootPath '\\persona-mgmt\e$\Profiles$' -Verbose  |  Measure-Object -Property MB -sum
-#Get-FolderInfo -HomeRootPath '\\persona-mgmt\e$\Profiles$' -removeString '.V2' -monthsForLogOnDate 5 -excludeFolder '_DELETE','vrodriguez.v2','gleon.v2' -Verbose  | Format-Table -AutoSize
-(Get-FolderInfo -HomeRootPath '\\persona-mgmt\e$\Profiles$' -removeString '.V2' -monthsForLogOnDate 5 -excludeFolder '_DELETE','vrodriguez.v2','gleon.v2').pathToPipe
-#Get-FolderInfo -HomeRootPath '\\persona-mgmt\e$\Profiles$' -removeString '.V2' -monthsForLogOnDate 1 -excludeFolder 'gleon.v2' -Verbose  | Format-Table -AutoSize
+#Get-FolderInfo -HomeRootPath '\\userpersona-mgmt\e$\Profiles$' -Verbose  |  Measure-Object -Property MB -sum
+#Get-FolderInfo -HomeRootPath '\\userpersona-mgmt\e$\Profiles$' -removeString '.V2' -monthsForLogOnDate 5 -excludeFolder '_DELETE','userone.v2','usertwenty.v2' -Verbose  | Format-Table -AutoSize
+(Get-FolderInfo -HomeRootPath '\\userpersona-mgmt\e$\Profiles$' -removeString '.V2' -monthsForLogOnDate 5 -excludeFolder '_DELETE','userone.v2','usertwenty.v2').pathToPipe
+#Get-FolderInfo -HomeRootPath '\\userpersona-mgmt\e$\Profiles$' -removeString '.V2' -monthsForLogOnDate 1 -excludeFolder 'usertwenty.v2' -Verbose  | Format-Table -AutoSize
