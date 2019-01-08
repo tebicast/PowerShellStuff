@@ -61,7 +61,7 @@ FUNCTION enable-CustPsRemoting {
 }##End of Function
 
 
-#$hostnametxt = "\\fileserver\vrodriguez\Scripts\Powershell\testNodeList.txt"
-enable-CustPsRemoting(get-content "\\fileserver\vrodriguez\Scripts\Powershell\serversWithoutWinRmEnabled9_13_2018.txt") -LogErrors  -Verbose 
+#$hostnametxt = "\\fileserver\userprofilepath\Scripts\Powershell\testNodeList.txt"
+enable-CustPsRemoting(get-content "\\fileserver\userprofilepath\Scripts\Powershell\serversWithoutWinRmEnabled9_13_2018.txt") -LogErrors  -Verbose 
 
 #(Get-WmiObject Win32_Process -ComputerName filesharewitnes | ?{ $_.ProcessName -match "PSEXESVC" }).Terminate()

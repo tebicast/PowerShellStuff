@@ -65,13 +65,13 @@ function Get-HostNameAndIpFromSubnet {
                 Write-Verbose "$subnetaddress IS UP!!"
                 TRY{
                     ##adding -first 1 in case it resolves a dnsname with multiple pointer records
-                    $result = Resolve-DnsName -Name $subnetaddress -DnsOnly -QuickTimeout -Server nj-dc-1-08.ansi.org | Select-Object namehost -First 1
+                    $result = Resolve-DnsName -Name $subnetaddress -DnsOnly -QuickTimeout -Server domain.org | Select-Object namehost -First 1
                     IF ($Result){
-                        Write-Verbose "$($result.NameHost)" #-replace '.ansi.org','')
+                        Write-Verbose "$($result.NameHost)" #-replace '.domain.org','')
                          
-                         [pscustomobject]@{'Host Name'=($Result.Namehost) -replace '.ansi.org',''
+                         [pscustomobject]@{'Host Name'=($Result.Namehost) -replace '.domain.org',''
                                                 'IP Address'=$subnetaddress
-                                                'Domain Name'='nj-dc-1-08.ansi.org'
+                                                'Domain Name'='domain.org'
                                                 }##pscumstomobject
                          }##IF  
                 }
@@ -88,6 +88,6 @@ function Get-HostNameAndIpFromSubnet {
 }##PROCESS
 END{}
 }##END OF FUNCTION
-Get-HostNameAndIpFromSubnet -listofSubnets ( Get-Content "\\fileserver\vrodriguez\gilIPList.txt") | Export-Csv -Path "\\fileserver\vrodriguez\FINALGet-HostNameAndIPFromSubnet.csv" -Encoding ascii -NoTypeInformation
+Get-HostNameAndIpFromSubnet -listofSubnets ( Get-Content "\\fileserver\userprofilepath\gilIPList.txt") | Export-Csv -Path "\\fileserver\userprofilepath\FINALGet-HostNameAndIPFromSubnet.csv" -Encoding ascii -NoTypeInformation
 
 

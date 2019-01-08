@@ -112,4 +112,4 @@ END{ <#intenrionally empty#> }
 }##End of function
 
 #Remove-SecDistMessageUser -secGroupList (get-content "\\path to security group") -fullname 'Enter Full Name Here ex: Lui Kang' -LogErrors -Verbose 
-Remove-SecDistMessageUser -secGroupList (Get-DistributionGroup -ResultSize unlimited ) -fullname 'Dan Ratner','Carol Klunder' -LogErrors -Verbose 
+Remove-SecDistMessageUser -secGroupList (Get-DistributionGroup -ResultSize unlimited ) -fullname 'User 1','mike lastname' -LogErrors -Verbose 

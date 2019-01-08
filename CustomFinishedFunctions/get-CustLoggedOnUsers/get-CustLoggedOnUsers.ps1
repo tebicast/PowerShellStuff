@@ -58,5 +58,5 @@ End {
 
 Get-WMIComputerSessions -computer localhost
 
-##below determines what user accounts ending in "vrod" are logged on.
+##below determines what user accounts ending in "-adm" are logged on.
 #Get-WMIComputerSessions -computer $computers | Where-Object {$_.User -like "-adm"}

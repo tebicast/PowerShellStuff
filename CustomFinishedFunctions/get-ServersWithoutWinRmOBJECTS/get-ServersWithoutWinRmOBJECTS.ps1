@@ -76,6 +76,6 @@ Get-ServersWithoutWinrm -ComputerName SERVER1,SERVER2 -LogErrors
 
 }##End of Function
 
-#get-ServersWithoutWinRm(get-content "\\fileserver\vrodriguez\Scripts\Powershell\testNodeList.txt") -LogErrors -verbose
+#get-ServersWithoutWinRm(get-content "\\fileservermachine\userone\Scripts\Powershell\testNodeList.txt") -LogErrors -verbose
 
-get-ServersWithoutWinRm(get-content "\\fileserver\vrodriguez\Scripts\Powershell\MOSTFULLnodelist9_13_2018.txt") -LogErrors -verbose
+get-ServersWithoutWinRm(get-content "\\fileservermachine\userone\Scripts\Powershell\MOSTFULLnodelist9_13_2018.txt") -LogErrors -verbose

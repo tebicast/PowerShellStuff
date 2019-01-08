@@ -22,7 +22,7 @@ Process{
            foreach($computerDnsTest in $computersToFilter){
            $fullDnsTest = "$($computerDnsTest.name)$DNS"
            Write-Verbose "Foreach In : $fullDnsTest"
-           $testDNS = Resolve-DnsName -Name $fullDnsTest -QuickTimeout -Server aol-dc-5-08.ansi_membership.org -ErrorAction SilentlyContinue
+           $testDNS = Resolve-DnsName -Name $fullDnsTest -QuickTimeout -Server DC1.org -ErrorAction SilentlyContinue
            IF ($testDNS){
            Write-Warning "$($computerDnsTest.CN) IS A LIVE MACHINE!"
            
@@ -52,4 +52,4 @@ Process{
 End{}
 }
 
-Get-OldComputerObjects -AddDays 365 -DNS '.ansi_membership.org' | Select-Object ComputerName,LastLogonDate,PasswordLastSet,whenChanged | Sort-Object -Property ComputerName | Export-Csv -Path  "\\fileserver\vrodriguez\PossiblyOldComputerObjects.csv" 
+Get-OldComputerObjects -AddDays 365 -DNS '.domain_membership.org' | Select-Object ComputerName,LastLogonDate,PasswordLastSet,whenChanged | Sort-Object -Property ComputerName | Export-Csv -Path  "\\fileserver\username\PossiblyOldComputerObjects.csv" 
