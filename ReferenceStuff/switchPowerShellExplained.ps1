@@ -1,3 +1,7 @@
+##https://powershellexplained.com/2018-01-12-Powershell-switch-statement/
+##ALL GATHERED FROM LINK ABOVE!
+
+
 <#
 You can use the $PSItem or $_ to reference the current item that was processed. 
 When we do a simple match, $PSItem will be the value that we are matching. 
