@@ -7,10 +7,10 @@ https://github.com/tebicast/PowerShellStuff/blob/master/CustomFinishedFunctions/
 .Notes
 version 1.0.0
 Author: Vrodit@gmail.com 
-Last Updated  ##DATE
+Last Updated  ##April 30
 I've only tested this in Powershell version 5.
-File Name: NAMEOFFILE.ps1
-Requires: REQUIREMENTS
+File Name: CREATE-CUSTOMFUNCTIONTEMPLATE.ps1
+Requires: REQUIREMENTS (add req's)
 
 .DESCRIPTION
 CREATE-CUSTOMFUNCTIONTEMPLATE uses ....
@@ -28,14 +28,14 @@ This example will remove the user "Fred Flinstone" the Delivery Management field
 
 .EXAMPLE
 CREATE-CUSTOMFUNCTIONTEMPLATE -FIRSTPARAMETER (get-content "\\PATH-TO-FILE") -SECONDPARAMETER 'FULL NAME' -LogErrors -Verbose
-EXPLAIN ABOVE
+EXPLAIN ABOVE 
 
 .EXAMPLE
 CREATE-CUSTOMFUNCTIONTEMPLATE -FIRSTPARAMETER (Get-CONTENT From Somewhere ) -SECONDPARAMETER 'Lui Kang','Mike Tyson' -LogErrors -Verbose 
 EXPLAIN ABOVE
 
 .Link
-https://github.com/tebicast/....
+https://github.com/tebicast/PowerShellStuff...
 #>
 [CmdletBinding()]
 PARAM (
@@ -58,7 +58,7 @@ PARAM (
 )
 BEGIN {
 	
-	if(-not(Test-Path -Path "C:\tem\powershell_logs\"))
+	if(-not(Test-Path -Path "C:\temp\powershell_logs\"))
 		{New-Item -ItemType "directory" -path "C:\temp\powershell_logs"}##END of if
 	if (-not(Test-Path -Path "C:\temp\powershell_logs\CREATEERRORLOGFILE.txt"))
 		{New-Item -Path "C:\temp\powershell_logs\" -ItemType "file" -Name "CREATEERRORLOGFILE.txt"}##END of if
