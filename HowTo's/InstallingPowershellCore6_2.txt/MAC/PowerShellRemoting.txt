@@ -1,0 +1,52 @@
+Tried the below from a MAC running Mojave to another mac running Mojave.
+
+below link was used for notes
+https://docs.microsoft.com/en-us/powershell/scripting/learn/remoting/ssh-remoting-in-powershell-core?view=powershell-6
+
+Make sure SSH Remoting is enabled by following these steps:
+    Open System Preferences
+    Click on Sharing
+    Check Remote Login - Should say Remote Login: On
+    Allow access to appropriate users
+
+Edit the sshd_config file at location /private/etc/ssh/sshd_config
+    sudo nano /private/etc/ssh/sshd_config
+
+Make sure password authentication is enabled
+    PasswordAuthentication yes
+Add a PowerShell subsystem entry
+    Subsystem powershell /usr/local/bin/pwsh -sshs -NoLogo -NoProfile
+Optionally enable key authentication <-- yes by default and we want this for security purposes
+    PubkeyAuthentication yes
+
+Restart the sshd service
+    sudo launchctl stop com.openssh.sshd
+    sudo launchctl start com.openssh.sshd
+
+**Important**
+PowerShell remoting over SSH relies on the authentication exchange between the SSH client and SSH service and does not implement any authentication schemes itself. 
+This means that any configured authentication schemes including multi-factor authentication is handled by SSH and independent of PowerShell. 
+For example, you can configure the SSH service to require public key authentication as well as a one-time password for added security. 
+
+**TIP**
+-SSHTransport
+Indicates that the remote connection is established using Secure Shell (SSH).
+By default PowerShell uses Windows WinRM to connect to a remote computer. 
+This switch forces PowerShell to use the HostName parameter set for establishing an SSH based remote connection.
+
+**EXAMPLE**
+$session = New-PSSession -HostName 10.168.0.24 -UserName mojave1 -SSHTransport
+Enter-PSSession -id 1
+
+**EXAMPLE**
+$session = New-PSSession -HostName 10.168.0.24 -UserName mojave1 -SSHTransport
+$session
+ Id Name            Transport ComputerName    ComputerType    State         ConfigurationName     Availability
+ -- ----            --------- ------------    ------------    -----         -----------------     ------------
+  7 Runspace6       SSH       10.168.0.24     RemoteMachine   Opened        DefaultShell             Available
+Enter-PSSession -id 7
+**TIP**
+To close all sessions at once 
+$session | Remove-PSSession
+
+Enter-PSSession -HostName 10.168.0.24 -UserName mojave1 -SSHTransport

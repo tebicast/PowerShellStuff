@@ -94,3 +94,5 @@ END{<#intenrionally empty#>}
 }##End of function
 #CREATE-CUSTOMFUNCTIONTEMPLATE -FIRSTPARAMETER (get-content "\\path to security group") -SECONDPARAMETER 'Enter Full Name Here ex: Lui Kang' -LogErrors -Verbose 
 CREATE-CUSTOMFUNCTIONTEMPLATE -FIRSTPARAMETER (Get-CONTENT From Somewhere ) -SECONDPARAMETER 'Lui Kang','Mike Tyson' -LogErrors -Verbose 
+
+get-help CREATE-CUSTOMFUNCTIONTEMPLATE 

@@ -1,0 +1,21 @@
+below from https://www.howtogeek.com/211541/homebrew-for-os-x-easily-installs-desktop-apps-and-terminal-utilities/
+
+need the command-line tools for Xcode installed
+xcode-select --install
+
+install homebrew
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+**TIP** -- check if brew is installed command
+brew doctor
+Your system is ready to brew.
+
+install powershell
+brew cask install powershell
+
+update both brew and powershell
+brew update
+brew cask upgrade powershell
+
+**NEEDED** -- OpenSSL is needed for PowerShell remoting and CIM operations. You can install via MacPorts or Brew. Try installing just in case!
+brew install openssl
