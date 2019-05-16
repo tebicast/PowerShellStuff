@@ -1,0 +1,11 @@
+Tried the below from a Ubuntu 19.04 box that was upgraded from 18.04
+
+below link was used for notes
+https://docs.microsoft.com/en-us/powershell/scripting/learn/remoting/ssh-remoting-in-powershell-core?view=powershell-6
+
+Edit the sshd_config file at location /etc/ssh
+Make sure password authentication is enabled
+    PasswordAuthentication yes
+
+Add a PowerShell subsystem entry
+    Subsystem powershell /usr/bin/pwsh -sshs -NoLogo -NoProfile

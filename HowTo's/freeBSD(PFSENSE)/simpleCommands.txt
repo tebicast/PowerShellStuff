@@ -1,0 +1,7 @@
+#disable packet filtering
+pfctl -d
+#enable packet filtering
+pfctl -e
+
+#delete arp table
+arp -d -a
