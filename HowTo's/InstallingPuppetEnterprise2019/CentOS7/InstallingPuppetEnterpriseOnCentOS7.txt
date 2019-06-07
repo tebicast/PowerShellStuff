@@ -1,4 +1,4 @@
-Installed on CentOs7
+PREPREP
 
 Check for available updates
     sudo yum check-update
@@ -11,12 +11,28 @@ Package manager cleanup
 yum install wget telnet nc nmap bind-utils nano net-tools
 
 change computer name
-echo "centos7puppetmaster" > /etc/hosts
-***ADD puppet to /ets/hosts && and add 172.16.1.5 centos7puppetmaster1 centos7puppetmaster1.localdomain
+echo "puppet" > /etc/hosts
+***ADD puppet to /ets/hosts && and add 172.16.1.5 puppet puppet.localdomain
 
 
 allow root login to make things easier but take it off after
 systemctl restart sshd.service
+
+
+add port 8140 && HTTPS to firewalld
+    sudo firewall-cmd --zone=public --permanent --add-port=8140/tcp
+    sudo firewall-cmd --zone=public --permanent --add-port=3000/tcp
+    sudo firewall-cmd --zone=public --permanent --add-service=https --permanent
+    sudo firewall-cmd --reload
+    sudo firewall-cmd --zone=public --permanent --list-ports
+    sudo firewall-cmd --zone=public --permanent --list-services
+
+##DHCP is enabled but it is not set to get a new IP on boot
+    sudo nano /etc/sysconfig/network-scripts/ifcfg-ens34
+ONBOOT=yes
+_______________________________________________________
+Install using express install
+
 
 below doesnt work, but just download the files and scp them to the machine
 curl -JLO https://pm.puppet.com/cgi-bin/download.cgi?dist=el&rel=7&arch=x86_64&ver=latest
@@ -40,7 +56,6 @@ The result is similar to:
 gpg: Signature made Tue 18 Sep 2016 10:05:25 AM PDT using RSA key ID EF8D349F
 gpg: Good signature from "Puppet, Inc. Release Key (Puppet, Inc. Release Key)"
 
-Install using express install
     Unpack the installation tarball:
         tar -xf <TARBALL_FILENAME>              
     From the installer directory, run the installer:
@@ -50,16 +65,6 @@ Install using express install
     Run Puppet twice: puppet agent -t.
 
 
-add port 8140 && HTTPS to firewalld
-firewall-cmd --zone=public --permanent --add-port=8140/tcp
-firewall-cmd --zone=public --permanent --add-service=https --permanent
-sudo firewall-cmd --reload
-firewall-cmd --zone=public --permanent --list-ports
-firewall-cmd --zone=public --permanent --list-services
-
-##DHCP is enabled but it is not set to get a new IP on boot
-sudo nano /etc/sysconfig/network-scripts/ifcfg-ens34
-ONBOOT=yes
 
 *****IF YOU DONT SSH ONTO THE MACHINE YOU WILL NOT BE ABLE TO COPY THE TEMP LINK TO CHANGE THE password
 Changing the password -- only way if you cant copy and paste the long LINK
@@ -67,8 +72,37 @@ https://puppet.com/misc/pe-files/previous-releases/3.8.0  <--
 Reset the admin password by running the update-superuser-password.rb utility script. You will then be able to log in to the console.
 You will need to use the PE version of Ruby in /opt/puppet/bin/ruby.
 
-scp -v puppet-enterprise-3.8.0-el-7-x86_64.tar.gz   root@172.16.1.5:/home/puppetmaster1
-tar --extract --file puppet-enterprise-3.8.0-el-7-x86_64
+    scp -v puppet-enterprise-3.8.0-el-7-x86_64.tar.gz   root@172.16.1.5:/home/puppetmaster1
+    tar --extract --file puppet-enterprise-3.8.0-el-7-x86_64
 
 **Troubleshooting
-puppet agent --test --server_list centos7puppetmaster1 --verbose --debug
+    puppet agent --test --server_list centos7puppetmaster1 --verbose --debug
+
+
+_______________________________________________________
+Using YUM
+
+Update all packages
+    sudo yum -y update
+
+Install repos
+sudo yum -y install http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
+ll /etc/yum.repos.d/
+
+Install PuppetMasterEnterprise
+sudo yum -y install puppet-server
+
+edit puppet.conf file
+    sudo nano /etc/puppet/puppet.conf
+        dns_alt_names =	puppet,	puppet.localdomain
+        certname = puppet
+
+generate certifacet from puppet master
+sudo -u puppet puppet master --no-daemonize --verbose
+
+****if you see line below hit CTRL + C
+Notice: Starting Puppet master version 3.8.7
+
+start puppet Master and make it boot on startup
+sudo systemctl start puppetmaster
+sudo systemctl enable puppetmaster
