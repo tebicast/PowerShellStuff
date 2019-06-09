@@ -1,0 +1,31 @@
+Below from 
+https://puppet.com/docs/pe/2019.1/installing_agents.html#installing-nix-agents
+
+Install *nix agents with PE package management
+
+PE provides its own package management to help you install agents in your infrastructure.
+Note: The <MASTER HOSTNAME> portion of the installer script—as provided in the following example—refers to the FQDN of the master. The FQDN must be fully resolvable by the machine on which you're installing or upgrading the agent.
+1.	If you're installing an agent with a different OS than the master, add the appropriate class for the repo that contains the agent packages.
+a.	In the console, click Classification, and in the PE Infrastructure group, select the PE Master group.
+b.	On the Configuration tab in the Class name field, enter pe_repo and select the repo class from the list of classes.
+Note: The repo classes are listed as pe_repo::platform::<AGENT_OS_VERSION_ARCHITECTURE>.
+c.	Click Add class, and commit changes.
+
+*****FOR APPLE OSX MOJAVE 10.4.5
+pe_repo::platform::osx_109_x86_64
+*****FOR KALI 2019
+pe_repo::platform::debian_9_amd64
+
+SSH into the node where you want to install the agent, and run the installation command appropriate to your environment.
+o	Curl
+curl -k https://<MASTER HOSTNAME>:8140/packages/current/install.bash | sudo bash
+Tip: On AIX, which doesn't support the -k option, use --tlsv1 instead. On other platforms that don't support the -k option, you must install using a manually transferred certificate.
+o	RHEL 5 and CentOS 5
+curl -k --tlsv1 https://>MASTER_HOSTNAME>:8140/packages/current/install.bash | sudo bash
+o	wget
+wget -O - -q --no-check-certificate https://<MASTER HOSTNAME>:8140/packages/current/install.bash | sudo bash
+o	Solaris 10 (run as root)
+o	export PATH=$PATH:/opt/sfw/bin
+wget -O - -q --no-check-certificate --secure-protocol=TLSv1 https://<MASTER HOSTNAME>:8140/packages/current/install.bash | bash
+Install *nix agents with your own package management
+

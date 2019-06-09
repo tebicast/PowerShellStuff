@@ -1,0 +1,6 @@
+Got below from https://puppet.com/docs/pe/2019.1/regenerate_certificates.html#regenerate-certificates
+
+
+On your master logged in as root, run
+puppet infrastructure run rebuild_certificate_authority caserver=localhost
+***Tip: If your master operates as your CA server, specify caserver=localhost. Running the command with localhost avoids the requirement to set up SSH between your master and itself.

@@ -1,0 +1,26 @@
+Below from 
+https://puppet.com/docs/puppet/5.5/ssl_regenerate_certificates.html#task-5986
+
+Clear and regenerate certs for Puppet agents
+
+To replace the certs on agents, you’ll need to log into each agent node and do the following steps.
+1.	Stop the agent service. On *nix:
+sudo puppet resource service puppet ensure=stopped
+On Windows, with Administrator privileges: 
+puppet resource service puppet ensure=stopped
+2.	Locate Puppet’s SSL directory and delete its contents.
+The SSL directory should be at /etc/puppetlabs/puppet/sslor C:\ProgramData\PuppetLabs\puppet\etc\ssl.
+3.	Restart the agent service. On *nix:
+sudo puppet resource service puppet ensure=running
+On Windows, with Administrator privileges:
+puppet resource service puppet ensure=running
+When the agent starts, it generates keys and requests a new certificate from the CA master.
+4.	If you are not using autosigning, log in to the CA master server and sign each agent node’s certificate request.
+To view pending requests, run:
+sudo puppet cert list
+To sign requests, run:
+sudo puppet cert sign <NAME>
+Once an agent node’s new certificate is signed, it's retrieved within a few minutes and a Puppet run starts.
+Once you have regenerated all agents’ certificates, everything should be fully functional under the new CA.
+
+

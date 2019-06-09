@@ -1,0 +1,42 @@
+Below from 
+https://puppet.com/docs/pe/2019.1/ssh_getting_started_guide.html#ssh-getting-started-guide
+
+##Below for regex help
+https://thenewstack.io/dont-fear-regex-getting-started-regular-expressions/
+
+######Create the SSH node group
+In the console, create a group called ssh_example to designate which nodes Puppet should manage SSH on.
+This group contains all of your nodes. Depending on your needs or infrastructure, you might have a different group that you assign SSH to.
+1.	In the PE console, click Classification, and click Add group. 
+2.	Specify options for the new node group:
+o	Parent name : select All nodes
+o	Group name : enter a name that describes the role of this environment node group
+o	Environment: select production
+o	Environment group: don't select this option
+3.	Click Add
+4.	Click the ssh_example group, then select the Rules tab.
+5.	In the Fact field, enter name.
+6.	From the Operator drop-down list, select ~ (matches regex).
+7.	In the Value field, enter .*.
+8.	Click Add rule.
+This rule "dynamically" pins all nodes to the ssh_example group. Note that this rule is for testing purposes, and that decisions about pinning nodes to groups in a production environment vary.
+
+*****
+172.16.2.[\d1-13] <-- for IPS 1 Network
+******kernel is not Darwin AS OF June 9th 2019 see BelowLatest version is compatible with:
+    Puppet Enterprise 2019.1.x, 2019.0.x, 2018.1.x, 2017.3.x, 2017.2.x, 2017.1.x, 2016.5.x, 2016.4.x
+    Puppet >= 3.8.7 < 7.0.0
+    RedHat, Ubuntu, Debian, Solaris, SLES, Scientific, CentOS, OracleLinux, SLED
+
+######Add classes from the ssh module
+After you apply the ssh class and run Puppet, the public key for each agent node is exported and then disseminated to the known_hosts files of the other agent nodes in the group, and you are no longer asked to authenticate those nodes on future SSH attempts.
+1.	In the console, click Classification, and find and select ssh_example group.
+2.	On the Configuration tab, in the Class name field, select ssh.
+3.	Click Add class, and commit changes.
+Note: The ssh class now appears in the list of classes for the ssh_example group, but it has not yet been configured on your nodes. For that to happen, kick off a Puppet run.
+4.	From the command line of your Puppet master, run puppet agent -t.
+5.	From the command line of each PE-managed node, run puppet agent -t.
+This configures the nodes using the newly assigned classes. Wait one or two minutes.
+
+
+

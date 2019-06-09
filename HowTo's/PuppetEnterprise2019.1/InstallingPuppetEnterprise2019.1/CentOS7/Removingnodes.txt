@@ -1,0 +1,8 @@
+Below from 
+https://puppet.com/docs/pe/2019.1/adding_and_removing_nodes.html
+
+Note: Removing a node doesn't uninstall the agent from the node.
+
+puppet node purge <CERTNAME>
+The node’s certificate is revoked, the certificate revocation list (CRL) is updated, and the node is deactivated in PuppetDB and removed from the console. 
+The license is now available for another node. The node can't check in or re-register with PuppetDB on the next Puppet run.
