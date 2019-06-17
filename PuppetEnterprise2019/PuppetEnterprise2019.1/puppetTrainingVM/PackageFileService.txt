@@ -1,0 +1,17 @@
+A package resource manages the software package itself, a file resource allows you to customize a related configuration file
+a service resource starts the service provided by the software you've just installed and configured.
+
+The file resource takes a source parameter, which allows you to specify a source file that will define the content of the managed file. 
+As its value, this parameter takes a URI. While it's possible to point to other locations, you'll typically use this to specify a file in your module's files directory. 
+Puppet uses a shortened URI format that begins with the puppet: prefix to refer to these module files kept on your Puppet master. This format follows the pattern puppet:///modules/<MODULE NAME>/<FILE PATH>. 
+Notice the triple forward slash just after puppet:. This stands in for the implied path to the modules on your Puppet master.
+
+The "package, file, service" pattern describes the common dependency relationships among these resources: we want to install a package, write a configuration file, and start a service, in that order. 
+Furthermore, if we make changes to the configuration file later, we want Puppet to restart our service so it can pick up those changes.
+
+relationship metaparameters: before and notify. before tells Puppet that the current resource must come before the target resource. 
+The notify metaparameter is like before, but if the target resource is a service, it has the additional effect of restarting the service whenever Puppet modifies the resource with the metaparameter set. 
+This is useful when you need Puppet to restart a service to pick up changes in a configuration file.
+
+Relationship metaparameters take a resource reference as a value. This resource reference points to another resource in your Puppet code. 
+The syntax for a resource reference is the capitalized resource type, followed by square brackets containing the resource title: Type['title'].

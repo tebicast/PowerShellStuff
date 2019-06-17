@@ -1,0 +1,28 @@
+a Puppet manifest is Puppet code saved to a file with the .pp extension.
+A class is named block of Puppet code. 
+A module is a directory structure that lets Puppet keep track of where to find the manifests that contain your classes.
+
+To see what your configured modulepath is, run the following command:
+    puppet config print modulepath
+/etc/puppetlabs/code/environments/production/modules:/etc/puppetlabs/code/modules:/opt/puppetlabs/puppet/modules
+The first directory listed in the modulepath ncludes modules specific to the production environment. 
+The second directory contains modules used across all environments, and the third is modules that PE uses to configure itself.
+
+navigate to the modules directory.
+    cd /etc/puppetlabs/code/environments/production/modules
+
+Create a directory structure for a new module called cowsay. (The -p flag allows you to create the cowsayparent directory and manifests subdirectory at once.)
+    mkdir -p cowsay/manifests
+
+It's always good practice to validate your code before you try to apply it. Use the puppet parser tool to check the syntax of your new manifest.
+    puppet parser validate cowsay/manifests/init.pp
+
+The parser will return nothing if there are no errors. If it does detect a syntax error, open the file again and fix the problem before continuing. 
+Be aware that this validation can only catch simple syntax errors and won't let you know about other possible errors in your manifests.
+
+Before applying any changes to your system, it's always a good idea to use the --noop flag to do a practice run of the Puppet agent. This will compile the catalog and notify you of the changes that Puppet would have made without actually applying any of those changes to your system. 
+It's a good way to catch issues the puppet parser validatecommand can't detect, and gives you a chance to validate that Puppet will be making the changes you expect.
+    sudo puppet agent -t --noop
+
+
+
