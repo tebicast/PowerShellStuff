@@ -6,7 +6,7 @@ This counts the number of files and size of all the files in the specified path.
 .Notes
 version 1.0.0
 Author: admin@tebicast.com
-Last Updated September 10/01/2018
+Last Updated September 06/19/19
 I've only tested this in Powershell version 5.
 File Name: Get-OldFilesOfOldUsers.ps1
 
@@ -31,7 +31,7 @@ This example will create a custom object that does not have force or recurse par
 
 
 .Link
-
+https://github.com/tebicast/TebiCastRepo/tree/master/PowerShell/MyCustomFinishedFunctions
 #>    
 [CmdletBinding()]
 PARAM(

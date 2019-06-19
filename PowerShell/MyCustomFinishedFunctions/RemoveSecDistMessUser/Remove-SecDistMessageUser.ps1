@@ -6,7 +6,7 @@ Checks if a user is in the specified security group's delivery management group 
 .Notes
 version 1.0.0
 Author: admin@tebicast.com
-Last Updated September 9/21/2018
+Last Updated September 06/19/19
 I've only tested this in Powershell version 5.
 File Name: Remove-SecDistMessageUser.ps1
 Requires: Exchange Management Shell for exchange cmdlets to work.
@@ -47,7 +47,7 @@ Remove-SecDistMessageUser -secGroupList (Get-DistributionGroup -ResultSize unlim
 This example will remove the users specefied 'Lui Kang','Mike Tyson' from the Delivery Management field of all the Security Groups in AD, NOTE - be aware this might use up alot of resources.
 
 .Link
-
+https://github.com/tebicast/TebiCastRepo/tree/master/PowerShell/MyCustomFinishedFunctions
 #>
 [CmdletBinding()]
 PARAM (

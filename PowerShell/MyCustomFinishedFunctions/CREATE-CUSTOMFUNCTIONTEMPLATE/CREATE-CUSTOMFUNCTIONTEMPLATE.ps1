@@ -7,7 +7,7 @@ My own custom template -- derived from link below
 .Notes
 version 1.0.0
 Author: admin@tebicast.com
-Last Updated  ##April 30
+Last Updated  06/19/19
 I've only tested this in Powershell version 5.
 File Name: CREATE-CUSTOMFUNCTIONTEMPLATE.ps1
 Requires: REQUIREMENTS (add req's)
@@ -35,7 +35,7 @@ CREATE-CUSTOMFUNCTIONTEMPLATE -FIRSTPARAMETER (Get-CONTENT From Somewhere ) -SEC
 EXPLAIN ABOVE
 
 .Link
-..
+https://github.com/tebicast/TebiCastRepo/tree/master/PowerShell/MyCustomFinishedFunctions
 #>
 [CmdletBinding()]
 PARAM (

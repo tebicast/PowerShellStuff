@@ -47,7 +47,7 @@ Remove-SecDistMessageUser -secGroupList (Get-DistributionGroup -ResultSize unlim
 This example will remove the user(s) specefied in "Enter Full Name Here ex: Lui Kang" from the Delivery Management field of all the Security Groups in AD, NOTE - be aware this might use up alot of resources.
 
 .Link
-
+https://github.com/tebicast/TebiCastRepo/tree/master/PowerShell/MyCustomFinishedFunctions
 #>	
 [CmdletBinding()]
 PARAM (
