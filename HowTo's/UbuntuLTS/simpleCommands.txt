@@ -1,8 +1,0 @@
-#verbose release eth0 address
-sudo dhclient -v -r eth0
-#verbose renew eth0 addres
-sudo dhclient -v eth0
-
-#get dns info
-sudo systemd-resolve --status
-

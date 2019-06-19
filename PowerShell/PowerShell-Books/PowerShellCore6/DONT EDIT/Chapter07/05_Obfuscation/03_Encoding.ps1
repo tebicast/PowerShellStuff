@@ -1,1 +1,0 @@
-﻿& ($env:comspec[(2*2),(1337-0x51f),(5*5)]-join'') get-service

@@ -1,8 +1,0 @@
-Below from 
-https://puppet.com/docs/pe/2019.1/ssh_getting_started_guide.html#ssh-getting-started-guide
-
-The ghoneycutt-ssh module manages SSH keys and removes SSH keys that you aren't managing with Puppet.
-This module, available on the Puppet Forge, is one of many modules written by our user community. 
-It contains one class: the ssh class. You can learn more about the ghoneycutt-ssh module by visiting the Forge.
-
-puppet module install ghoneycutt-ssh -v 3.61.0
