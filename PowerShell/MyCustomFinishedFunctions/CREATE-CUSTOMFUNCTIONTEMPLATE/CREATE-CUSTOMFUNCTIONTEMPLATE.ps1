@@ -2,11 +2,11 @@ FUNCTION CREATE-CUSTOMFUNCTIONTEMPLATE{
 <#
 .SYPNOSIS
 My own custom template -- derived from link below
-https://github.com/tebicast/PowerShellStuff/blob/master/CustomFinishedFunctions/CREATE-CUSTOMFUNCTIONTEMPLATE/CREATE-CUSTOMFUNCTIONTEMPLATE.ps1
+
 
 .Notes
 version 1.0.0
-Author: Vrodit@gmail.com 
+Author: admin@tebicast.com
 Last Updated  ##April 30
 I've only tested this in Powershell version 5.
 File Name: CREATE-CUSTOMFUNCTIONTEMPLATE.ps1
@@ -35,7 +35,7 @@ CREATE-CUSTOMFUNCTIONTEMPLATE -FIRSTPARAMETER (Get-CONTENT From Somewhere ) -SEC
 EXPLAIN ABOVE
 
 .Link
-https://github.com/tebicast/PowerShellStuff...
+..
 #>
 [CmdletBinding()]
 PARAM (
