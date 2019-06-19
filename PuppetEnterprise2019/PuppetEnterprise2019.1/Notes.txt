@@ -1,0 +1,29 @@
+When a Puppet agent contacts the Puppet master, the master checks for any node definitions in the site.pp manifest that match the agent system's name. 
+In the Puppet world, the term "node" is used to mean any system or device in your infrastructure, so a node definition defines how Puppet should manage a given system.
+    vim /etc/puppetlabs/code/environments/production/manifests/site.pp
+
+node 'siem.localdomain' {
+	notify { 'Hello Puppet!':}
+}
+
+Rather than classifying this node on the master and triggering a Puppet agent run, apply this manifest directly with the puppet apply tool.
+ You can use the puppet apply tool to test Puppet code in a manifest just like you can use the puppet resource tool to explore and modify resources directly.
+vim /tmp/hello.pp
+notify { 'Hello Puppet!': }
+sudo puppet apply /tmp/hello.pp 
+
+To see what your configured modulepath is, run the following command:
+    puppet config print modulepath
+The output is a list of directories separated by the colon (:) character.
+    /etc/puppetlabs/code/environments/production/modules:/etc/puppetlabs/code/modules:/opt/puppetlabs/puppet/modules
+
+The parser will return nothing if there are no errors. If it does detect a syntax error, open the file again and fix the problem before continuing. 
+puppet parser validate /tmp/hello.pp 
+
+The file resource takes a source parameter, which allows you to specify a source file that will define the content of the managed file. 
+As its value, this parameter takes a URI. While it's possible to point to other locations, you'll typically use this to specify a file in your module's files directory. 
+Puppet uses a shortened URI format that begins with the puppet: prefix to refer to these module files kept on your Puppet master. This format follows the pattern 
+puppet:///modules/<MODULE NAME>/<FILE PATH>
+
+before and notify. before tells Puppet that the current resource must come before the target resource. 
+The notify metaparameter is like before, but if the target resource is a service, it has the additional effect of restarting the service whenever Puppet modifies the resource with the metaparameter set.

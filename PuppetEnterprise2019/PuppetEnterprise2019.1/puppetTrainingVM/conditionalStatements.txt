@@ -1,0 +1,20 @@
+conditional statement looks like this:
+if $::osfamily == 'RedHat' {
+  ...
+  $apache_name = 'httpd'
+  ...
+} elsif $::osfamily == 'Debian' {
+  ...
+  $apache_name = 'apache2'
+  ...
+}
+
+Here, the $apache_name variable is set to either httpd or apache2 depending on the value of the $::osfamily fact. 
+Elsewhere in the module, you'll find a package resource that uses this $apache_name variable to set its name parameter.
+package { 'httpd':
+  ensure => $ensure,
+  name   => $::apache::apache_name,
+  notify => Class['Apache::Service'],
+}
+Because the name parameter is being explicitly set here, the resource title (httpd) only serves as an internal identifier for the resource—it doesn't actually determine the name of the package that will be installed.
+
