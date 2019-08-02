@@ -18,9 +18,10 @@ $organizationalUnitDistinguishedName | foreach {Get-ADUser -SearchBase "$_" -Fil
 
 
 #######Gets all AD User Objects for ALL existing Logon Scripts except the one specified  #######
-$organizationalUnitToSearch = ìOU=Department,dc=Company,dc=orgî
+$organizationalUnitToSearch = “OU=Department,dc=Company,dc=org”
 $allButThisLogonScript = 'logon.bat'
 get-aduser -SearchBase $organizationalUnitToSearch -Filter * -properties Name, scriptpath -ResultSetSize 50000 | Where-Object {$_.scriptpath -ne $allButThisLogonScript} | Select-Object -Property samaccountname, name,scriptpath | Sort-Object scriptpath 
+
 
 ##Converts displayNames ex: "Firstname Lastname" to samAccountName
 $displayNames = Get-Content -Path \\pathToFile\displayNames.txt 
@@ -38,7 +39,7 @@ $all | Group-Object -Property name -NoElement  | where {$_.count -gt 1}
 
 #######CHANGING LogOn Scripts for AD User Objects#######
 $newLogonScript = 'logon.bat'
-$organizationalUnitToSearch = ìOU=Department,dc=Company,dc=orgî
+$organizationalUnitToSearch = “OU=Department,dc=Company,dc=org”
 ##Query and output ALL AD User Objects LogonScript before making any changes
 get-aduser -SearchBase $organizationalUnitToSearch -Filter * -properties Name, scriptpath -ResultSetSize 50000 | Select-Object -Property SamAccountName, name , scriptpath  | Sort-Object scriptpath | Export-Csv -Path \\pathToFile\ADexportBeforeChangingALL.csv
 ##Query and output ALL AD User Objects LogonScript that do not have the new LogOn Script
@@ -47,22 +48,22 @@ get-aduser -SearchBase $organizationalUnitToSearch -Filter * -properties Name, s
 get-aduser -SearchBase $organizationalUnitToSearch -Filter * -properties Name, scriptpath -ResultSetSize 50000 | Where-Object {$_.scriptpath -ne $newLogonScript}  | % {set-ADUser -Identity $_.samaccountname -scriptpath $newLogonScript }
 
 #######Get all computer objects's LastLogonTimeStamp ending in specific string#######
-$organizationalUnitToSearch = ìOU=Department,dc=Company,dc=orgî
+$organizationalUnitToSearch = “OU=Department,dc=Company,dc=org”
 $stringToSearch = '-Laptop'
 Get-ADComputer -SearchBase $organizationalUnitToSearch -Filter * -properties  * | Where-Object {$_.name -match "$stringToSearch.*$" } | Select-Object -Property name, @{Name="LastLogonTimeStamp";Expression={([datetime]::FromFileTime($_.LastLogonTimeStamp))}} | Sort-Object -Property  LastLogonTimeStamp 
 
 #######Gets all AD User Objects (name,samAccountName,lastLogonDate) whose name or samAccountName has a specific string #######
 $textToLookFor = 'test'
-$organizationalUnitToSearch = ìOU=Department,dc=Company,dc=orgî
+$organizationalUnitToSearch = “OU=Department,dc=Company,dc=org”
 Get-ADUser -SearchBase $organizationalUnitToSearch -Filter * -properties  * | Where-Object {$_.samaccountname -match ".*$textToLookFor.*$" -or $_.name -match ".*$textToLookFor.*$" } | Select-Object -Property name,samaccountname,mail,LastLogonDate|Sort-Object LastLogonDate | Format-Table * 
 
 #######Gets all AD User Objects that are not in specified Organizational Unit DistinguishedName#######
-$organizationalUnitToSearch = ìOU=Department,dc=Company,dc=orgî
+$organizationalUnitToSearch = “OU=Department,dc=Company,dc=org”
 $organizationalUnitDistinguishedName = "OUName1|OUName2|OUName3"
 Get-ADUser -SearchBase $organizationalUnitToSearch -Filter * -properties  * | Where-Object {$_.DistinguishedName -notmatch $organizationalUnitDistinguishedName -and $_.enabled} | Select-Object -Property samaccountname,name,mail,description | Sort-Object name  
 
 #######Set all AD User Object's PasswordNeverExpires attribute to NO/FALSE #######
-$organizationalUnitToSearch = ìOU=Department,dc=Company,dc=orgî
+$organizationalUnitToSearch = “OU=Department,dc=Company,dc=org”
 Get-ADUser -SearchBase $organizationalUnitToSearch -Filter * -properties Name, PasswordNeverExpires -ResultSetSize 50000 | Set-ADUser -PasswordNeverExpires:$False
 
 #######Compare the Security Groups of two AD User Objects#######
@@ -71,13 +72,13 @@ $adUser2 = 'user2'
 Compare-Object (Get-ADPrincipalGroupMembership $adUser1) (Get-ADPrincipalGroupMembership $adUser2) -Property SamAccountName -PassThru| Where-Object {$_.Sideindicator -eq "<="} | Sort-Object -Property SamAccountName | Select-Object -Property SamAccountName 
 
 #######Gets all AD Computer Objects with the specified regex strings to search for "|" is for or "$" is for end of string "^" is for beginning of string#######
-$organizationalUnitToSearch = ìOU=ComputerObjectGroup,OU=Department,dc=Company,dc=orgî
+$organizationalUnitToSearch = “OU=ComputerObjectGroup,OU=Department,dc=Company,dc=org”
 $regexADComputerObjects = "endingWithString1$|endingWithString2$|endingWithString3$|endingWithString4$|endingWithString5$|^startingWithString1|^startingWithString2|^startingWithString3"
 Get-ADComputer -SearchBase $organizationalUnitToSearch -Filter * -properties  * | Where-Object {$_.name -notmatch $regexADComputerObjects } | Select-Object -Property name, @{Name="LastLogonTimeStamp";Expression={([datetime]::FromFileTime($_.LastLogonTimeStamp))}} | Sort-Object -Property  LastLogonTimeStamp
 
 
 ##Gets all AD User Objects, shows ALL the groups they are a member of and outputs it
-$organizationalUnitToSearch = ìOU=Department,dc=Company,dc=orgî
+$organizationalUnitToSearch = “OU=Department,dc=Company,dc=org”
 get-aduser -filter * -searchbase $organizationalUnitToSearch -Properties Memberof | ForEach {
     $username = $_.SamAccountName
     $_.MemberOf | ForEach {
