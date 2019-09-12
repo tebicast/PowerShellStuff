@@ -129,7 +129,6 @@ Function Test-IP([string] $VM_IPAddress)
 $ActiveDirectoryDomain = "company.org"                              #AD Domain to join
 $vCenter_Instance = "viCenterName"                                  #vCenter instance to connect to
 $vCenter_Cluster = "vCenter_Cluster_Name"                           #vCenter cluster to deploy VM
-$vCenter_SourceVMTemplate = Get-Template -Name "vCenterTemplate"    #vCenter template to deploy VM
 $vCenter_SourceCustomSpectemp = "tempSpec" + (Get-Random)           #Generate a random name for the tempSpec to allow parallel runs
 $vCenter_CustomizationSpec = "vCenterCustomicationVmFile"           #vCenter customization to use for VM
 $vCenter_FolderVMLocation = "vmFolderLocationName"                  #Folderlocation in vCenter for VM
@@ -148,6 +147,8 @@ $VM_IPAddress = '10.55.3.66'                                        ##IP Address
 
 ###CONNECT TO VCENTER
 Connect-VIServer -Server $vCenter_Instance -Credential (Get-Credential -Credential "company\adminUserNameHere") -Verbose
+###First we have to connect , then we can GET the source template
+$vCenter_SourceVMTemplate = Get-Template -Name "vCenterTemplate"    #vCenter template to deploy VM
 ###BELOW GETS THE DATASTORE THAT HAS THE MOST FREE SPACE -- Excludes anything starting with SQL (customize to your liking)
 $DataStore = Get-Datastore -Location '3par_esx_cluster1'  |
 Where-Object {$_.name -notlike '*sql*' } |
